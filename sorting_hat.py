@@ -153,6 +153,14 @@ def show_style_selection():
         show_grip_option(col2, styles[1])
 
 def show_result():
+    if (
+            st.session_state.house_type == "대바늘" and
+            st.session_state.wand_type == "스틸바늘" and
+            st.session_state.knitting_type == "컨티넨탈"
+    ):
+        st.session_state.page = "hidden"
+        st.rerun()
+
     st.title("당신은 이런 뜨개인이에요!")
     st.image("assets/knitters_high.jpg")
 

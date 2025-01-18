@@ -62,7 +62,6 @@ def reset_quiz():
     st.session_state.knitting_type = None
 
 def show_stitch_option(col, stitch_name):
-    """편물 옵션을 이미지와 함께 표시하는 함수"""
     col.image(STITCH_IMAGES[stitch_name], use_container_width=True)
     if col.button("💗", key=f"select_{stitch_name}"):
         if stitch_name == "짧은뜨기":
@@ -86,7 +85,6 @@ def show_quiz():
 
     current_options = OPTIONS[st.session_state.current_question]
 
-    # 두 번째 질문일 경우 이미지와 함께 표시
     if st.session_state.current_question == 1:
         col1, col2 = st.columns(2)
         with col1:
@@ -94,7 +92,6 @@ def show_quiz():
         with col2:
             show_stitch_option(col2, "메리야스")
     else:
-        # 다른 질문들은 기존 방식대로 표시
         col1, col2 = st.columns(2)
         with col1:
             if st.button(current_options[0], key=f"option1_{st.session_state.current_question}"):
@@ -147,7 +144,6 @@ def show_style_selection():
     st.title("재미로 하는 뜨개인 테스트 🧶")
     st.subheader("뜨개질 마법, 어떻게 해볼까?")
 
-    # house_type에 따라 다른 스타일 옵션 표시
     styles = KNITTING_STYLES[st.session_state.house_type]
     col1, col2 = st.columns(2)
 

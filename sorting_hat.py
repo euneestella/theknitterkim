@@ -40,7 +40,7 @@ KNITTING_STYLES = {
 
 def initialize_session_state():
     if "page" not in st.session_state:
-        st.session_state.page = "quiz"  # quiz, wand, style, result
+        st.session_state.page = "quiz"  # quiz, wand, style, result, hidden
     if "current_question" not in st.session_state:
         st.session_state.current_question = 0
     if "house_points" not in st.session_state:
@@ -159,11 +159,37 @@ def show_result():
     st.markdown(
         f"""
             🎩 **<u>{st.session_state.house_type}</u>** 뜨개로 시작해 보는 건 어떨까요? 
-            
+
             🪄 운명의 바늘은 **<u>{st.session_state.wand_type}</u>** 이예요.  
-            
+
             💗 **<u>{st.session_state.knitting_type}</u>** 방법으로 바늘을 잡아보는 걸 추천해요!
             """,
+        unsafe_allow_html=True
+    )
+
+    if (
+            st.session_state.house_type == "대바늘" and
+            st.session_state.wand_type == "스틸바늘" and
+            st.session_state.knitting_type == "컨티넨탈"
+    ):
+        st.session_state.page = "hidden"
+        st.rerun()
+
+    if st.button("다시 시작하기"):
+        reset_quiz()
+        st.rerun()
+
+def hidden_page():
+    st.title("🍀저랑 통하셨군요!")
+    st.image("assets/winner.png")
+    st.markdown(
+        f"""
+                저도 <u>{st.session_state.house_type}</u> 뜨개를 가장 좋아해요!
+                
+                <u>{st.session_state.wand_type}</u>이 제 손에 맞아서 바늘 세트를 들였어요 😎
+                
+                <u>{st.session_state.knitting_type}</u> 기법을 가장 많이 써요. 가끔은 플리킹도..!
+                """,
         unsafe_allow_html=True
     )
 
@@ -175,6 +201,7 @@ def show_result():
 def main():
     initialize_session_state()
 
+    # Route the app to the appropriate page
     if st.session_state.page == "quiz":
         show_quiz()
     elif st.session_state.page == "wand":
@@ -183,6 +210,8 @@ def main():
         show_style_selection()
     elif st.session_state.page == "result":
         show_result()
+    elif st.session_state.page == "hidden":
+        hidden_page()
 
 
 if __name__ == "__main__":

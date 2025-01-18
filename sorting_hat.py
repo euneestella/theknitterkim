@@ -153,12 +153,19 @@ def show_style_selection():
         show_grip_option(col2, styles[1])
 
 def show_result():
-    st.title("뜨개인 결과 🎓")
-    st.write("-ˋˏ ༻ ❁ ✿ ❀༺ ˎˊ‧₊˚❀ ༉ ‧₊ ˚. ☘︎ ")
+    st.title("당신은 이런 뜨개인이에요!")
+    st.image("assets/knitters_high.jpg")
 
-    st.write(f"🎩 당신은 **{st.session_state.house_type}** 타입의 뜨개인입니다! 😎")
-    st.write(f"🪄 운명의 바늘은 **{st.session_state.wand_type}** 이예요.")
-    st.write(f"💗 **{st.session_state.knitting_type}** 방법으로 바늘을 잡아보면 어떨까요?")
+    st.markdown(
+        f"""
+            🎩 **<u>{st.session_state.house_type}</u>** 뜨개로 시작해 보는 건 어떨까요? 
+            
+            🪄 운명의 바늘은 **<u>{st.session_state.wand_type}</u>** 이예요.  
+            
+            💗 **<u>{st.session_state.knitting_type}</u>** 방법으로 바늘을 잡아보는 걸 추천해요!
+            """,
+        unsafe_allow_html=True
+    )
 
     if st.button("다시 시작하기"):
         reset_quiz()
